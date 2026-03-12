@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mora Spices and Blends 🌶️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #fff8f0; }
+
+        /* NAVBAR */
+        .navbar {
+            background: #c0392b; padding: 15px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .navbar h1 { color: white; font-size: 24px; }
+        .navbar a {
+            color: white; text-decoration: none;
+            margin-left: 20px; font-size: 16px;
+        }
+        .navbar a:hover { text-decoration: underline; }
+
+        /* FILTER BUTTONS */
+        .filters {
+            text-align: center; padding: 20px;
+            background: #fdebd0;
+        }
+        .filters a {
+            display: inline-block; margin: 5px;
+            padding: 8px 20px; border-radius: 20px;
+            background: white; color: #c0392b;
+            text-decoration: none; border: 2px solid #c0392b;
+            font-weight: bold;
+        }
+        .filters a:hover { background: #c0392b; color: white; }
+
+        /* PRODUCTS GRID */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px; padding: 30px;
+        }
+        .card {
+            background: white; border-radius: 10px;
+            padding: 20px; text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .card .emoji { font-size: 50px; }
+        .card h3 { margin: 10px 0; color: #333; }
+        .card .category {
+            background: #fdebd0; color: #c0392b;
+            padding: 3px 10px; border-radius: 10px;
+            font-size: 12px; display: inline-block;
+        }
+        .card .price {
+            font-size: 22px; color: #27ae60;
+            font-weight: bold; margin: 10px 0;
+        }
+        .card a {
+            display: inline-block;
+            background: #c0392b; color: white;
+            padding: 8px 20px; border-radius: 5px;
+            text-decoration: none; font-weight: bold;
+        }
+        .card a:hover { background: #a93226; }
+
+        /* FOOTER */
+        footer {
+            text-align: center; padding: 20px;
+            background: #c0392b; color: white;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h1>🌶️ Mora Spices and Blends </h1>
+    <div>
+        <a href="/">Home</a>
+        <a href="/cart">🛒 Cart</a>
+        {% if session.user %}
+            <a href="/admin">Admin</a>
+            <a href="/logout">Logout ({{ session.user }})</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- FILTER BUTTONS -->
+<div class="filters">
+    <a href="/?category=All">All</a>
+    <a href="/?category=Spices">🌶️ Spices</a>
+    <a href="/?category=Millet Mix">🌾 Millet Mix</a>
+    <a href="/?category=Health Mix">💚 Health Mix</a>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products">
+    {% for product in products %}
+    <div class="card">
+        <div class="emoji">{{ product.emoji }}</div>
+        <h3>{{ product.name }}</h3>
+        <span class="category">{{ product.category }}</span>
+        <div class="price">₹{{ product.price }}</div>
+        <a href="/add_to_cart/{{ product.id }}">Add to Cart 🛒</a>
+    </div>
+    {% endfor %}
+</div>
+
+<footer>
+    <p>🌶️ Mora Spices and Blends — Natural & Healthy Products</p>
+</footer>
+
+</body>
+</html>
